@@ -10,15 +10,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import http from "../../../http";
 
 const ListRestaurants = () => {
   const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
 
   useEffect(() => {
-    axios
-      .get<IRestaurant[]>("http://localhost:8000/api/v2/restaurantes/")
+    http
+      .get<IRestaurant[]>("restaurantes/")
       .then((res) => {
         setRestaurants(res.data);
       })
@@ -28,8 +28,8 @@ const ListRestaurants = () => {
   }, []);
 
   const excluirItem = (restaurantId: number) => {
-    axios
-      .delete(`http://localhost:8000/api/v2/restaurantes/${restaurantId}/`)
+    http
+      .delete(`restaurantes/${restaurantId}/`)
       .then((res) => {
         const listRestaurants = restaurants.filter(
           (item) => item.id !== restaurantId
